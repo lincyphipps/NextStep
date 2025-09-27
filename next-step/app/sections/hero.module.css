@@ -1,0 +1,32 @@
+.hero{
+    background:var(--cream);
+    padding:48px 0;
+}
+
+.wrap{
+    display:grid;
+    grid-template-columns: 420px 1fr;
+    gap:28px;
+    align-items:center;
+}
+
+.art{
+    border: 2px solid var(--navy);
+    border-radius: var(--radius);
+    overflow:hidden;
+    background:#0d2a3f
+}
+
+.copy{
+    padding:8px;
+}
+
+.copy p{
+    font-size:20px;
+    max-width:48ch;
+}
+
+@media (max-width: 920px){
+    .wrap{grid-template-columns:1fr; 
+    }
+}

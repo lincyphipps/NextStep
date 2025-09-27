@@ -1,0 +1,51 @@
+/* styling for header component */
+.top{
+    background: var(--redDark);
+    padding:10px 0;
+}
+
+.row{
+    position:relative;
+    height:72px;
+}
+
+.centerLogo{
+    position:absolute;
+    left:50%;
+    top:0;
+    transform:translateX(-50%);
+}
+
+.profile{
+    position:aboslute;
+    right:0;
+    top:18px;
+    background:transparent;
+    color:var(--cream);
+    border:2px solid var(--cream);
+    border-radius: 999px;
+    width:36px;
+    height: 36px;
+    display:grid;
+    place-items: center;
+}
+
+.nav{
+    background:var(--navy);
+    color:var(--cream);
+}
+
+.links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    padding:10px 0;
+    margin:0;
+    justify-content: center;
+}
+
+.links a{
+    color:var(--cream);
+    text-decoration:none;
+    font-size:14px;
+}
