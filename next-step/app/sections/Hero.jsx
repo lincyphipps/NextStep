@@ -1,6 +1,7 @@
 // hero image + heading/copy
 import Image from "next/image";
 import s from "./hero.module.css";
+import logo from "../../public/assets/hero page.png";
 
 export default function Hero(){
     return(
@@ -8,7 +9,7 @@ export default function Hero(){
             <div className="container">
                 <div className={s.wrap}>
                     <div className={s.art}>
-                        <Image src="/assets/hero-page.png" alt="" width={600} height={600} priority/>
+                        <Image src={logo} alt="" width={600} height={600} priority/>
                     </div>
 
                     <div className={s.copy}>
