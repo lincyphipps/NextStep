@@ -8,11 +8,9 @@ import GetStarted from "./sections/GetStarted";
 export default function Home(){
   return(
     <main>
-      <Header />
       <Hero />
       <Divider />
       <GetStarted />
-      <Footer />
     </main>
   );
 }

@@ -31,54 +31,42 @@ export default function ChatPage() {
     }
   }
 
-    async function handleSubmit() {
-        setLoading(true);
+  async function handleSubmit() {
+    setLoading(true);
 
-        const res = await fetch("/api/chatbot", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-            question,
-            answer: userAnswer,
-            mode: "score",
-            }),
-        });
-        const data = await res.json();
+    const res = await fetch("/api/chatbot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, answer: userAnswer, mode: "score" }),
+    });
+    const data = await res.json();
 
-        let text = "";
-        const candidates = data.output?.candidates;
-        if (candidates && candidates.length > 0) {
-            text = candidates[0].content.parts[0].text;
-        }
+    let text = "";
+    const candidates = data.output?.candidates;
+    if (candidates?.length) text = candidates[0].content.parts[0].text;
 
-        // 🟢 Try to clean up Gemini response
-        let parsed = null;
-        try {
-            // Remove markdown fences if present
-            const cleaned = text.replace(/```json|```/g, "").trim();
-            parsed = JSON.parse(cleaned);
-        } catch (err) {
-            console.error("Failed to parse Gemini response:", err);
-        }
+    let parsed = null;
+    try {
+      const cleaned = text.replace(/```json|```/g, "").trim();
+      parsed = JSON.parse(cleaned);
+    } catch {}
 
-        if (parsed) {
-            setFeedback(`⭐ Score: ${parseFloat(parsed.score).toFixed(1)}/5\n\n${parsed.feedback}`);
-        } else {
-            setFeedback(text); // fallback if parsing fails
-        }
-
-        setLoading(false);
-        setStep("feedback");
+    if (parsed) {
+      setFeedback(`⭐ Score: ${parseFloat(parsed.score).toFixed(1)}/5\n\n${parsed.feedback}`);
+    } else {
+      setFeedback(text);
     }
 
+    setLoading(false);
+    setStep("feedback");
+  }
+
   return (
-    <div style={{ backgroundColor: "#fdf0d5", minHeight: "100vh", padding: "2rem", fontFamily: "sans-serif" }}>
-      <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-        {/* Chat bubble */}
+    <main style={{ backgroundColor: "#fdf0d5", padding: "2rem 1rem", fontFamily: "sans-serif" }}>
+      <div style={{ maxWidth: 600, margin: "0 auto" }}>
         {step === "intro" && (
           <div style={{ background: "#669bbc", padding: "1rem", borderRadius: "1rem", marginBottom: "1rem", color: "white" }}>
-            🐸 Hi, I’m <b>Leap</b>, your career-hopping buddy!  
-            I’m here to help you prep for interviews and hop into your dream job.
+            🐸 Hi, I’m <b>Leap</b>, your career-hopping buddy!
             <br /><br />
             <button
               style={{ background: "#003049", color: "white", border: "none", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
@@ -89,30 +77,21 @@ export default function ChatPage() {
           </div>
         )}
 
-        {/* Exit button */}
-            <div style={{ textAlign: "right", marginBottom: "1rem" }}>
-            <Link href="/">
-                <button style={{
-                background: "#780000",
-                color: "white",
-                border: "none",
-                padding: "0.5rem 1rem",
-                borderRadius: "0.5rem",
-                cursor: "pointer"
-                }}>
-                Exit
-                </button>
-            </Link>
+        {/* Exit */}
+        <div style={{ textAlign: "right", marginBottom: "1rem" }}>
+          <Link href="/" className="btn" style={{ background: "#780000", color: "#fff", padding: ".5rem 1rem", borderRadius: ".5rem" }}>
+            Exit
+          </Link>
         </div>
 
         {step === "category" && (
           <div style={{ textAlign: "center" }}>
             <p style={{ color: "#780000", fontWeight: "bold" }}>What type of practice do you want?</p>
-            <button style={{ margin: "0.5rem", background: "#003049", color: "white", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
+            <button style={{ margin: ".5rem", background: "#003049", color: "#fff", padding: ".5rem 1rem", borderRadius: ".5rem" }}
               onClick={() => { setCategory("behavioral"); setQuestion(pickQuestion("behavioral")); setStep("question"); }}>
               Behavioral
             </button>
-            <button style={{ margin: "0.5rem", background: "#003049", color: "white", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
+            <button style={{ margin: ".5rem", background: "#003049", color: "#fff", padding: ".5rem 1rem", borderRadius: ".5rem" }}
               onClick={() => setStep("difficulty")}>
               Technical
             </button>
@@ -124,7 +103,7 @@ export default function ChatPage() {
             <p style={{ color: "#780000", fontWeight: "bold" }}>Pick difficulty:</p>
             {["easy", "medium", "hard"].map(diff => (
               <button key={diff}
-                style={{ margin: "0.5rem", background: "#003049", color: "white", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
+                style={{ margin: ".5rem", background: "#003049", color: "#fff", padding: ".5rem 1rem", borderRadius: ".5rem" }}
                 onClick={() => { setCategory("technical"); setDifficulty(diff); setQuestion(pickQuestion("technical", diff)); setStep("question"); }}>
                 {diff}
               </button>
@@ -135,12 +114,12 @@ export default function ChatPage() {
         {step === "question" && (
           <div style={{ background: "#669bbc", color: "white", padding: "1rem", borderRadius: "1rem", marginBottom: "1rem" }}>
             <p><b>Question:</b> {question}</p>
-            <div style={{ marginTop: "1rem" }}>
-              <button style={{ margin: "0.25rem", background: "#003049", color: "white", padding: "0.4rem 1rem", borderRadius: "0.5rem" }}
+            <div style={{ marginTop: ".75rem" }}>
+              <button style={{ margin: ".25rem", background: "#003049", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
                 onClick={() => setQuestion(pickQuestion(category, difficulty))}>Skip</button>
-              <button style={{ margin: "0.25rem", background: "#003049", color: "white", padding: "0.4rem 1rem", borderRadius: "0.5rem" }}
+              <button style={{ margin: ".25rem", background: "#003049", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
                 onClick={() => setStep("answer")}>Answer</button>
-              <button style={{ margin: "0.25rem", background: "#c1121f", color: "white", padding: "0.4rem 1rem", borderRadius: "0.5rem" }}
+              <button style={{ margin: ".25rem", background: "#c1121f", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
                 onClick={async () => {
                   const res = await fetch("/api/chatbot", {
                     method: "POST",
@@ -148,9 +127,8 @@ export default function ChatPage() {
                     body: JSON.stringify({ question, mode: "model-answer" }),
                   });
                   const data = await res.json();
-                  const candidates = data.output?.candidates;
-                  let text = candidates?.[0]?.content?.parts?.[0]?.text || "No answer available.";
-                  setFeedback(text);
+                  const txt = data.output?.candidates?.[0]?.content?.parts?.[0]?.text || "No answer available.";
+                  setFeedback(txt);
                   setStep("feedback");
                 }}>See Answer</button>
             </div>
@@ -162,28 +140,26 @@ export default function ChatPage() {
             <p><b>Question:</b> {question}</p>
             <textarea
               rows={4}
-              style={{ width: "100%", marginTop: "1rem", padding: "0.5rem", borderRadius: "0.5rem" }}
+              style={{ width: "100%", marginTop: ".75rem", padding: ".5rem", borderRadius: ".5rem" }}
               value={userAnswer}
               onChange={e => setUserAnswer(e.target.value)}
             />
             <button
-              style={{ marginTop: "0.5rem", background: "#003049", color: "white", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
+              style={{ marginTop: ".5rem", background: "#003049", color: "white", padding: ".5rem 1rem", borderRadius: ".5rem" }}
               onClick={handleSubmit}
             >
               Submit
             </button>
-
-            {/* 🟢 Loading indicator goes here */}
-            {loading && <p style={{ marginTop: "0.5rem" }}>⏳ Leap is thinking...</p>}
-        </div>
+            {loading && <p style={{ marginTop: ".5rem" }}>⏳ Leap is thinking...</p>}
+          </div>
         )}
 
         {step === "feedback" && (
           <div style={{ background: "#669bbc", color: "white", padding: "1rem", borderRadius: "1rem" }}>
             <p>🐸 Leap’s Feedback:</p>
-            <pre style={{ whiteSpace: "pre-wrap" }}>{feedback}</pre>
+            <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{feedback}</pre>
             <button
-              style={{ marginTop: "0.5rem", background: "#003049", color: "white", padding: "0.5rem 1rem", borderRadius: "0.5rem" }}
+              style={{ marginTop: ".5rem", background: "#003049", color: "white", padding: ".5rem 1rem", borderRadius: ".5rem" }}
               onClick={() => setStep("category")}
             >
               Practice Another
@@ -191,6 +167,6 @@ export default function ChatPage() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

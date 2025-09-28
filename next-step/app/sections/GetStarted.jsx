@@ -1,4 +1,5 @@
 import s from "./getstarted.module.css"; // section specific styles
+import Link from "next/link";
 
 // using a small data array for the content on each card, easy to edit/reorder
 const tiles = [
@@ -31,7 +32,8 @@ export default function GetStarted(){
                         <article key={t.id} className="card">
                             <h3 className={s.cardTitle}>{t.title}</h3>
                             <p className="p">{t.text}</p>
-                            <a className="btn" href={`#${t.id}`}>GO</a>
+                            <Link className="btn" href="/interview">GO</Link>
+
                         </article>
                     ))}
                 </div>
