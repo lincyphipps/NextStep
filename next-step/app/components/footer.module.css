@@ -1,27 +1,47 @@
-/* styling for the footer component */
-
+/* Footer wrapper */
 .foot{
-    background:var(--redDark);
-    color:var(--cream);
-    padding:18px 0;
+  background: var(--redDark);
+  color: var(--cream);
+  padding: 16px 0;
 }
 
+/* Brand left, icons right */
 .row{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;                 /* keeps it neat on small screens */
 }
 
 .brand{
-    font-family:var(--font-display);
-    font-size:28px;
-    letter-spacing:.02em;
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: .02em;
 }
 
+/* Icon row */
 .icons{
-    display:flex;
-    gap:12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.icons a{ color:var(--cream); }
+.icons a { display:grid; place-items:center; width:36px; height:36px; color:var(--cream); }
+
+/* Normalize SVG size (react-icons or inline <svg>) */
+.icons a > svg{
+  width: 22px;
+  height: 22px;
+}
+
+/* Subtle hover/focus—no ugly squares */
+.icons a:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.icons a:focus-visible{
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
+}
