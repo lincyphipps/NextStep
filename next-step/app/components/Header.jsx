@@ -28,8 +28,8 @@ export default function Header(){
                 <div className="container">
                     <ul className={s.links}>
                         <li><Link href="/interview">Interview</Link></li>
-                        <li><a href="#resume">Resume</a></li>
-                        <li><Link href="/neetcode">Neetcode</Link></li>
+                        <li><Link href="/resume">Resume</Link></li>
+                        <li><Link href="/neetcode">NeetCode</Link></li>
                         <li><a href="#about">About</a></li>
                     </ul>
                 </div>
