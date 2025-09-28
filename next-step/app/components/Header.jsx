@@ -10,9 +10,9 @@ export default function Header(){
             <div className={s.top}>
                 <div className="container">
                     <div className={s.row}>
-                        <div className={s.centerLogo}>
+                        <Link href="/" className={s.centerLogo}>
                             <Image src={headerLogo} alt="NextStep" width={72} height={72} />
-                        </div>
+                        </Link>
 
                         <Link href="/dashboard" className={s.profile} aria-label="Profile">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="CurrentColor">

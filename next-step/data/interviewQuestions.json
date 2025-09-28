@@ -1,0 +1,75 @@
+[
+    {
+      "id": "b1",
+      "category": "behavioral",
+      "text": "Tell me about yourself.",
+      "answer": "A concise summary of your background, studies, and a key strength relevant to the role."
+    },
+    {
+      "id": "b2",
+      "category": "behavioral",
+      "text": "Describe a time you worked as part of a team. What was your role?",
+      "answer": "Pick a project where teamwork mattered. Explain your role, how you collaborated, and the outcome."
+    },
+    {
+      "id": "b3",
+      "category": "behavioral",
+      "text": "What’s your greatest strength, and how has it helped you succeed?",
+      "answer": "Choose a strength relevant to the job and back it up with a real-world example."
+    },
+    {
+      "id": "b4",
+      "category": "behavioral",
+      "text": "Tell me about a time you faced a setback and how you handled it.",
+      "answer": "Describe the situation briefly, how you adapted, and what you learned."
+    },
+    {
+      "id": "b5",
+      "category": "behavioral",
+      "text": "Give me an example of when you had to quickly learn a new skill.",
+      "answer": "Explain the skill, how you learned it, and how you applied it successfully."
+    },
+    {
+      "id": "t1",
+      "category": "technical",
+      "difficulty": "easy",
+      "text": "What is the difference between processes and threads?",
+      "answer": "A process is an independent program with its own memory space, while a thread is a lightweight unit of execution that shares memory within a process."
+    },
+    {
+      "id": "t2",
+      "category": "technical",
+      "difficulty": "easy",
+      "text": "Explain Big-O notation and why it is important.",
+      "answer": "Big-O notation describes the upper bound of an algorithm’s runtime in terms of input size. It helps compare efficiency and scalability of algorithms."
+    },
+    {
+      "id": "t3",
+      "category": "technical",
+      "difficulty": "medium",
+      "text": "What happens when you type a URL into a browser and press Enter?",
+      "answer": "The browser resolves the domain via DNS, establishes a TCP connection, sends an HTTP(S) request, the server responds with data, and the browser renders the page."
+    },
+    {
+      "id": "t4",
+      "category": "technical",
+      "difficulty": "medium",
+      "text": "What is a deadlock and how can it be prevented?",
+      "answer": "A deadlock occurs when processes wait indefinitely for resources held by each other. Prevention strategies include resource ordering, timeouts, and avoiding circular waits."
+    },
+    {
+      "id": "t5",
+      "category": "technical",
+      "difficulty": "hard",
+      "text": "What is the average case time complexity of quicksort?",
+      "answer": "The average case time complexity of quicksort is O(n log n). In the worst case, it degrades to O(n²), but good pivot selection minimizes this."
+    },
+    {
+      "id": "t6",
+      "category": "technical",
+      "difficulty": "hard",
+      "text": "What are the key differences between object-oriented and functional programming?",
+      "answer": "OOP is based on encapsulating state and behavior into objects, emphasizing inheritance and polymorphism. Functional programming emphasizes immutability, pure functions, and declarative transformations."
+    }
+]
+  

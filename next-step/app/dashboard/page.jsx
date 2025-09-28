@@ -20,6 +20,7 @@ export default function Dashboard() {
   const [isEditingInterviews, setIsEditingInterviews] = useState(false);
   const [tempApplications, setTempApplications] = useState(applications);
   const [tempInterviews, setTempInterviews] = useState(interviews);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Check if streak should be reset (if more than 1 day has passed)
   useEffect(() => {
@@ -57,13 +58,22 @@ export default function Dashboard() {
   };
 
   const handleStreakUpdate = () => {
+    const today = new Date();
+    const todayString = today.toDateString();
+    
     if (!todayCompleted) {
-      const today = new Date();
-      const todayString = today.toDateString();
-      
+      // Checking the box - increment streak
       setStreak(streak + 1);
       setTodayCompleted(true);
       setLastCompletedDate(todayString);
+      
+      // Show confetti animation
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
+    } else {
+      // Unchecking the box - decrement streak
+      setStreak(Math.max(0, streak - 1));
+      setTodayCompleted(false);
     }
   };
 
@@ -129,12 +139,11 @@ export default function Dashboard() {
     const currentDayIndex = getMondayFirstDay(getCurrentDayOfWeek());
     
     return days.map((day, index) => {
-      const isCompleted = index < streak;
       const isCurrentDay = index === currentDayIndex;
       const showMascot = index === currentDayIndex;
       
       return (
-        <div key={day} className={`${s.lilyPad} ${isCompleted ? s.completed : ''} ${isCurrentDay ? s.currentDay : ''}`}>
+        <div key={day} className={`${s.lilyPad} ${isCurrentDay ? s.currentDay : ''}`}>
           <div className={s.dayLabel}>{day}</div>
           {showMascot && (
             <div className={s.mascotContainer}>
@@ -147,14 +156,32 @@ export default function Dashboard() {
               />
             </div>
           )}
-          {isCompleted && <div className={s.checkmark}>✓</div>}
         </div>
       );
     });
   };
 
   return (
-    <main>      
+    <main>
+      <Header />
+      
+      {/* Confetti Animation */}
+      {showConfetti && (
+        <div className={s.confettiContainer}>
+          {[...Array(150)].map((_, i) => (
+            <div
+              key={i}
+              className={s.confetti}
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                backgroundColor: ['#c1121f', '#669bbc', '#003049', '#fdf0d5'][Math.floor(Math.random() * 4)]
+              }}
+            />
+          ))}
+        </div>
+      )}
+      
       <section className={s.dashboard}>
         <div className="container">
           {/* Welcome Section */}

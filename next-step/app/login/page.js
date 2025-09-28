@@ -19,30 +19,16 @@ export default function LoginPage() {
         setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push("/account");    
+            router.push("/dashboard");    
         } catch (error) {
             alert(error.message);
         } finally {
             setLoading(false);
         }
-        // try {
-        //     if (isLogin) {
-        //         // Login
-        //         await signInWithEmailAndPassword(auth, email, password);
-        //         alert("Logged in successfully!");
-        //     } else {
-        //         // Sign Up
-        //         await createUserWithEmailAndPassword(auth, email, password);
-        //         alert("Account created successfully!");
-        //     }
-        // } catch (error) {
-        //     alert(error.message);
-        // }
     };
 
     return (
         <>
-            <Header />
             <AuthCard title="Welcome Back!" toggleText="Don't have an account?" toggleHref="/signup">
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
@@ -76,37 +62,6 @@ export default function LoginPage() {
                     </button>
                 </form>
             </AuthCard>
-            <Footer />
         </>
-
-
-        // <div style={{ maxWidth: "400px", margin: "auto", padding: "2rem"}}>
-        //     <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-        //     <form onSubmit={handleSubmit}>
-        //     <input
-        //         type="email"
-        //         placeholder="Email"
-        //         value={email}
-        //         onChange={(e) => setEmail(e.target.value)}
-        //         required
-        //         />
-        //         <br />
-        //         <input
-        //             type="password"
-        //             placeholder="Password"
-        //             value={password}
-        //             onChange={(e) => setPassword(e.target.value)}
-        //             required
-        //         />
-        //         <br />
-        //         <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
-        //     </form>
-        //     <p 
-        //         onClick={() => setIsLogin(!isLogin)} 
-        //         style={{cursor:"pointer", color:"blue"}}
-        //     >
-        //         {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
-        //     </p>
-        // </div>
     );
 }

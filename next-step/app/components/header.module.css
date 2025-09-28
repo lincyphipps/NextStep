@@ -14,12 +14,16 @@
     position:absolute;
     left:50%;
     top:50%;
-    transform:translateX(-50%, -58%);
-    pointer-events: none;
+    transform: translate(-50%, var(--logo-shift));
+    text-decoration: none;
+    transition: transform 0.2s ease;
 }
 
-:root { --logo-shift: -50%; }
-.centerLogo{ transform: translate(-50%, var(--logo-shift)); }
+.centerLogo:hover {
+    transform: translate(-50%, var(--logo-shift)) scale(1.05);
+}
+
+:root { --logo-shift: -58%; }
 
 .profile{
   position: absolute;

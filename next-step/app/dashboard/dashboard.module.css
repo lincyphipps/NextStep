@@ -285,16 +285,6 @@
   box-shadow: inset 0 1px 2px rgba(255,255,255,0.3);
 }
 
-.lilyPad.completed {
-  background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 50%, #8fbc8f 100%);
-  border-color: #2d5a27;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.1), 0 0 0 3px rgba(76, 175, 80, 0.3);
-}
-
-.lilyPad.completed::before {
-  background: linear-gradient(135deg, #5a8a4a 0%, #7ba832 50%, #9fcc9f 100%);
-  border-color: #3d6b2d;
-}
 
 .lilyPad.currentDay {
   animation: pulse 2s ease-in-out infinite;
@@ -314,17 +304,6 @@
   z-index: 3;
 }
 
-.checkmark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  color: #2e7d32;
-  font-weight: bold;
-  z-index: 3;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-}
 
 @keyframes pulse {
   0%, 100% {
@@ -360,6 +339,37 @@
   }
   75% {
     transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+/* Confetti Animation */
+.confettiContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--red);
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
   }
 }
 
