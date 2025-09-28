@@ -1,6 +1,11 @@
 'use client';
 
+import { signOut } from 'firebase/auth';
 import { useState, useEffect } from 'react';
+import { auth, db } from '../firebase/firebaseConfig';
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Image from 'next/image';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import s from './dashboard.module.css';
@@ -22,6 +27,22 @@ export default function Dashboard() {
 
   // Check if streak should be reset (if more than 1 day has passed)
   useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        setUserName(data.name || "Your Name");
+        setApplications(data.applications || 0);
+        setInterviews(data.interviews || 0);
+      }
+    };
+
+    fetchUserData();
+
     const today = new Date();
     const todayString = today.toDateString();
     
@@ -61,36 +82,74 @@ export default function Dashboard() {
     
     if (!todayCompleted) {
       // Checking the box - increment streak
-      setStreak(streak + 1);
+      const newStreak = streak + 1;
+      setStreak(newStreak);
       setTodayCompleted(true);
       setLastCompletedDate(todayString);
       
       // Show confetti animation
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 3000);
+
+      const user = auth.currentUser;
+      if (user) {
+        updateDoc(doc(db, "users", user.uid), { 
+          streakCount: newStreak,
+          lastCompletedDate: todayString
+         });
+      }
+
     } else {
       // Unchecking the box - decrement streak
-      setStreak(Math.max(0, streak - 1));
+      const newStreak = Math.max(0, streak - 1);
+      setStreak(newStreak);
       setTodayCompleted(false);
+
+      const user = auth.currentUser;
+      if (user) {
+        updateDoc(doc(db, "users", user.uid), { 
+          streakCount: newStreak, 
+          lastCompletedDate: null
+        });
+      }
     }
   };
 
-  const handleApplicationsEdit = () => {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "/"; // Redirect to homepage after logout
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  const handleApplicationsEdit = async () => {
     if (isEditingApplications) {
       setApplications(tempApplications);
+      const user = auth.currentUser;
+      if (user) {
+        await updateDoc(doc(db, "users", user.uid), { 
+          applications: tempApplications });
     } else {
       setTempApplications(applications);
     }
     setIsEditingApplications(!isEditingApplications);
-  };
+    }
+};
 
-  const handleInterviewsEdit = () => {
+  const handleInterviewsEdit = async () => {
     if (isEditingInterviews) {
       setInterviews(tempInterviews);
+      const user = auth.currentUser;
+      if (user) {
+        await updateDoc(doc(db, "users", user.uid), { 
+          interviews: tempInterviews });
     } else {
       setTempInterviews(interviews);
     }
     setIsEditingInterviews(!isEditingInterviews);
+    }
   };
 
   const handleApplicationsChange = (e) => {
@@ -202,6 +261,10 @@ export default function Dashboard() {
                     </h1>
                   )}
                   <p className={s.welcomeText}>Welcome to your NextStep dashboard!</p>
+                  {/*Logout Button*/}
+                  <button onClick={handleLogout} className={s.logoutButton}>
+                    Logout
+                    </button>
                 </div>
               </div>
             </div>

@@ -15,6 +15,7 @@ export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false); 
+    const [name, setName] = useState("");
     
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -26,6 +27,9 @@ export default function SignupPage() {
             
             await setDoc(doc(db, "users", user.uid), {
                 email: user.email,
+                name: name,
+                applications: 0,
+                interviews: 0,
                 scoreTotal: 0,
                 numQuestions: 0,
                 streakCount: 0
@@ -44,6 +48,17 @@ export default function SignupPage() {
         <>
             <AuthCard title="Welcome!" toggleText="Already have an account?" toggleHref="/login">
                 <form onSubmit={handleSignup} className="space-y-4">
+                    <div>
+                        <label className="block mb-1 font-medium">Full Name</label>
+                        <input
+                            type="text"
+                            placeholder="Full Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0f2b3c] focus:outline-none"
+                        />
+                    </div>
                     <div>
                         <label className = "block mb-1 font-medium">Email</label>
                         <input
