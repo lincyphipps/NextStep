@@ -131,12 +131,12 @@ export default function Dashboard() {
       if (user) {
         await updateDoc(doc(db, "users", user.uid), { 
           applications: tempApplications });
+      }
     } else {
       setTempApplications(applications);
     }
     setIsEditingApplications(!isEditingApplications);
-    }
-};
+  };
 
   const handleInterviewsEdit = async () => {
     if (isEditingInterviews) {
@@ -145,11 +145,11 @@ export default function Dashboard() {
       if (user) {
         await updateDoc(doc(db, "users", user.uid), { 
           interviews: tempInterviews });
+      }
     } else {
       setTempInterviews(interviews);
     }
     setIsEditingInterviews(!isEditingInterviews);
-    }
   };
 
   const handleApplicationsChange = (e) => {

@@ -6,8 +6,8 @@ import Xarrow from "react-xarrows";
 
 export default function Roadmap() {
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col">
-      <main className="relative w-full bg-gray-900 h-[450px]">
+    <div className="bg-[#fdf0d5] flex flex-col min-h-full">
+      <main className="relative w-full bg-[#fdf0d5] h-[450px] mb-8 flex-1">
         <RoadmapBox
           id="arrays"
           title="Arrays & Hashing"
@@ -57,14 +57,14 @@ export default function Roadmap() {
           style={{ top: "380px", left: "50%", transform: "translateX(-50%)" }}
         />
 
-        <Xarrow start="arrays" end="two-pointers" color="white" />
-        <Xarrow start="arrays" end="stack" color="white" />
-        <Xarrow start="two-pointers" end="binary" color="white" />
-        <Xarrow start="two-pointers" end="sliding" color="white" />
-        <Xarrow start="stack" end="linked" color="white" />
-        <Xarrow start="binary" end="trees" color="white" />
-        <Xarrow start="sliding" end="trees" color="white" />
-        <Xarrow start="linked" end="trees" color="white" />
+        <Xarrow start="arrays" end="two-pointers" color="#003049" />
+        <Xarrow start="arrays" end="stack" color="#003049" />
+        <Xarrow start="two-pointers" end="binary" color="#003049" />
+        <Xarrow start="two-pointers" end="sliding" color="#003049" />
+        <Xarrow start="stack" end="linked" color="#003049" />
+        <Xarrow start="binary" end="trees" color="#003049" />
+        <Xarrow start="sliding" end="trees" color="#003049" />
+        <Xarrow start="linked" end="trees" color="#003049" />
       </main>
     </div>
   );
