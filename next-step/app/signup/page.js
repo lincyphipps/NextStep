@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebaseConfig';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AuthCard from '../components/AuthCard';
@@ -18,8 +21,18 @@ export default function SignupPage() {
         setLoading(true);
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            router.push("/account");    
+            const userCredential = await createUserWithEmailAndPassword(auth , email, password);
+            const user = userCredential.user;
+            
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                scoreTotal: 0,
+                numQuestions: 0,
+                streakCount: 0
+            });
+
+            router.push("/dashboard");    
+
         } catch (error) {
             alert(error.message);
         } finally {
@@ -29,7 +42,6 @@ export default function SignupPage() {
 
     return (
         <>
-            <Header />
             <AuthCard title="Welcome!" toggleText="Already have an account?" toggleHref="/login">
                 <form onSubmit={handleSignup} className="space-y-4">
                     <div>
@@ -63,7 +75,6 @@ export default function SignupPage() {
                     </button>
                 </form>
             </AuthCard>
-            <Footer />
         </>
     );
 }

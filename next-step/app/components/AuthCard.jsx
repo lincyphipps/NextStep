@@ -1,24 +1,24 @@
 import Link from "next/link";
+import s from "./authCard.module.css";
 
 export default function AuthCard({ title, toggleText, toggleHref, children }) {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-[#f9f1dc] px-4">
-            
-            {/* Page Title */}
-            <h1 className="text-4x1 font-serif mb-8">{title}</h1>
-           
-            {/* Card */}
-            <div className="w-full max-w-md bg-[#f9f1dc] border-4 border-[#d9c6a4] rounded-2x1 p-8 shadow-md">
-                {children}
+  return (
+    <div className={s.wrapper}>
+      {/* Page Title */}
+      <h1 className={s.title}>{title}</h1>
 
-                {/* Toggle Link */}
-                <p className="mt-4 text-center text-sm">
-                    {toggleText}{" "}
-                    <Link href={toggleHref} className="text-[#0f2b3c] hover:underline">
-                        {toggleHref === "/login" ? "Login" : "Sign Up"}
-                    </Link>
-                </p>
-            </div>
-        </div>
-        );
+      {/* Card */}
+      <div className={s.card}>
+        {children}
+
+        {/* Toggle Link */}
+        <p className={s.toggle}>
+          {toggleText}{" "}
+          <Link href={toggleHref}>
+            {toggleHref === "/login" ? "Login" : "Sign Up"}
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 }
