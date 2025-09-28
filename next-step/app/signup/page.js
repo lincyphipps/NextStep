@@ -31,8 +31,8 @@ export default function SignupPage() {
                 streakCount: 0
             });
 
-            router.push("/account");    
-            
+            router.push("/dashboard");    
+
         } catch (error) {
             alert(error.message);
         } finally {

@@ -19,7 +19,7 @@ export default function LoginPage() {
         setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push("/account");    
+            router.push("/dashboard");    
         } catch (error) {
             alert(error.message);
         } finally {
@@ -65,6 +65,5 @@ export default function LoginPage() {
             </AuthCard>
             <Footer />
         </>
-
     );
 }
