@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { auth, db } from '../firebase/firebaseConfig';
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Image from 'next/image';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -24,6 +26,22 @@ export default function Dashboard() {
 
   // Check if streak should be reset (if more than 1 day has passed)
   useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        setUserName(data.name || "Your Name");
+        setApplications(data.applications || 0);
+        setInterviews(data.interviews || 0);
+      }
+    };
+
+    fetchUserData();
+
     const today = new Date();
     const todayString = today.toDateString();
     
@@ -77,22 +95,32 @@ export default function Dashboard() {
     }
   };
 
-  const handleApplicationsEdit = () => {
+  const handleApplicationsEdit = async () => {
     if (isEditingApplications) {
       setApplications(tempApplications);
+      const user = auth.currentUser;
+      if (user) {
+        await updateDoc(doc(db, "users", user.uid), { 
+          applications: tempApplications });
     } else {
       setTempApplications(applications);
     }
     setIsEditingApplications(!isEditingApplications);
-  };
+    }
+};
 
-  const handleInterviewsEdit = () => {
+  const handleInterviewsEdit = async () => {
     if (isEditingInterviews) {
       setInterviews(tempInterviews);
+      const user = auth.currentUser;
+      if (user) {
+        await updateDoc(doc(db, "users", user.uid), { 
+          interviews: tempInterviews });
     } else {
       setTempInterviews(interviews);
     }
     setIsEditingInterviews(!isEditingInterviews);
+    }
   };
 
   const handleApplicationsChange = (e) => {
