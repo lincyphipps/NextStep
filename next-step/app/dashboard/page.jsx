@@ -163,7 +163,6 @@ export default function Dashboard() {
 
   return (
     <main>
-      <Header />
       
       {/* Confetti Animation */}
       {showConfetti && (
