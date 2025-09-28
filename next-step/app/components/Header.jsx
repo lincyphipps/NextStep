@@ -30,7 +30,7 @@ export default function Header(){
                         <li><Link href="/interview">Interview</Link></li>
                         <li><Link href="/resume">Resume</Link></li>
                         <li><a href="#neet">NeetCode</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><Link href="/about">About</Link></li>
                     </ul>
                 </div>
             </nav>
