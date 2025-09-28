@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import interviewQuestions from "../../data/interviewQuestions.json";
 
 export default function ChatPage() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState("intro");
   const [category, setCategory] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
@@ -12,6 +14,28 @@ export default function ChatPage() {
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [tailoredQuestion, setTailoredQuestion] = useState(null);
+
+  // Check for tailored question on component mount
+  useEffect(() => {
+    const isTailored = searchParams.get('tailored');
+    if (isTailored === 'true') {
+      const storedQuestion = localStorage.getItem('tailoredQuestion');
+      if (storedQuestion) {
+        try {
+          const parsed = JSON.parse(storedQuestion);
+          setTailoredQuestion(parsed);
+          setQuestion(parsed.question);
+          setCategory(parsed.category);
+          setStep("question");
+          // Clear the stored question after using it
+          localStorage.removeItem('tailoredQuestion');
+        } catch (error) {
+          console.error('Error parsing tailored question:', error);
+        }
+      }
+    }
+  }, [searchParams]);
 
   // Filter questions by category and difficulty
   const getFilteredQuestions = (cat, diff) => {
@@ -109,6 +133,11 @@ export default function ChatPage() {
 
         {step === "question" && (
           <div style={{ background: "#669bbc", color: "white", padding: "1rem", borderRadius: "1rem", marginBottom: "1rem" }}>
+            {tailoredQuestion && (
+              <div style={{ background: "#c1121f", padding: "0.5rem", borderRadius: "0.5rem", marginBottom: "1rem", fontSize: "14px", fontWeight: "bold" }}>
+                🎯 Personalized Question from Resume Analysis
+              </div>
+            )}
             <p><b>Question:</b> {question}</p>
             <div style={{ marginTop: ".75rem" }}>
               <button style={{ margin: ".25rem", background: "#003049", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
@@ -116,8 +145,27 @@ export default function ChatPage() {
               <button style={{ margin: ".25rem", background: "#003049", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
                 onClick={() => setStep("answer")}>Answer</button>
               <button style={{ margin: ".25rem", background: "#c1121f", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
-                onClick={() => {
-                  if (currentQuestion && currentQuestion.answer) {
+                onClick={async () => {
+                  if (tailoredQuestion) {
+                    // For tailored questions, generate an answer using the API
+                    setLoading(true);
+                    try {
+                      const res = await fetch("/api/chatbot", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ question, mode: "model-answer" }),
+                      });
+                      const data = await res.json();
+                      const txt = data.output?.candidates?.[0]?.content?.parts?.[0]?.text || "No answer available.";
+                      setFeedback(txt);
+                      setStep("feedback");
+                    } catch (error) {
+                      setFeedback("Failed to generate answer. Please try again.");
+                      setStep("feedback");
+                    } finally {
+                      setLoading(false);
+                    }
+                  } else if (currentQuestion && currentQuestion.answer) {
                     setFeedback(currentQuestion.answer);
                     setStep("feedback");
                   } else {
