@@ -82,17 +82,36 @@ export default function Dashboard() {
     
     if (!todayCompleted) {
       // Checking the box - increment streak
-      setStreak(streak + 1);
+      const newStreak = streak + 1;
+      setStreak(newStreak);
       setTodayCompleted(true);
       setLastCompletedDate(todayString);
       
       // Show confetti animation
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 3000);
+
+      const user = auth.currentUser;
+      if (user) {
+        updateDoc(doc(db, "users", user.uid), { 
+          streakCount: newStreak,
+          lastCompletedDate: todayString
+         });
+      }
+
     } else {
       // Unchecking the box - decrement streak
-      setStreak(Math.max(0, streak - 1));
+      const newStreak = Math.max(0, streak - 1);
+      setStreak(newStreak);
       setTodayCompleted(false);
+
+      const user = auth.currentUser;
+      if (user) {
+        updateDoc(doc(db, "users", user.uid), { 
+          streakCount: newStreak, 
+          lastCompletedDate: null
+        });
+      }
     }
   };
 
