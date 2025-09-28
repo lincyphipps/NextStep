@@ -29,7 +29,6 @@ export default function LoginPage() {
 
     return (
         <>
-            <Header />
             <AuthCard title="Welcome Back!" toggleText="Don't have an account?" toggleHref="/signup">
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
@@ -63,7 +62,6 @@ export default function LoginPage() {
                     </button>
                 </form>
             </AuthCard>
-            <Footer />
         </>
     );
 }

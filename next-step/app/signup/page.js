@@ -42,7 +42,6 @@ export default function SignupPage() {
 
     return (
         <>
-            <Header />
             <AuthCard title="Welcome!" toggleText="Already have an account?" toggleHref="/login">
                 <form onSubmit={handleSignup} className="space-y-4">
                     <div>
@@ -76,7 +75,6 @@ export default function SignupPage() {
                     </button>
                 </form>
             </AuthCard>
-            <Footer />
         </>
     );
 }
