@@ -154,9 +154,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main>
-      <Header />
-      
+    <main>      
       <section className={s.dashboard}>
         <div className="container">
           {/* Welcome Section */}
@@ -271,8 +269,6 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }
