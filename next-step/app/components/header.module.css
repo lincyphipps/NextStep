@@ -23,7 +23,7 @@
     transform: translate(-50%, var(--logo-shift)) scale(1.05);
 }
 
-:root { --logo-shift: -58%; }
+:root { --logo-shift: -50%; }
 
 .profile{
   position: absolute;

@@ -11,7 +11,7 @@ export default function Header(){
                 <div className="container">
                     <div className={s.row}>
                         <Link href="/" className={s.centerLogo}>
-                            <Image src={headerLogo} alt="NextStep" width={72} height={72} />
+                            <Image src={headerLogo} alt="NextStep" width={90} height={90} />
                         </Link>
 
                         <Link href="/dashboard" className={s.profile} aria-label="Profile">
