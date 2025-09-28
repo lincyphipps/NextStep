@@ -29,7 +29,7 @@ export default function Header(){
                     <ul className={s.links}>
                         <li><Link href="/interview">Interview</Link></li>
                         <li><a href="#resume">Resume</a></li>
-                        <li><a href="#neet">NeetCode</a></li>
+                        <li><Link href="/neetcode">Neetcode</Link></li>
                         <li><a href="#about">About</a></li>
                     </ul>
                 </div>
