@@ -2,6 +2,7 @@
 import Image from "next/image"; // next image: optimized images
 import s from "./header.module.css"; // css module specific to header
 import headerLogo from "../../public/assets/single logo.png"
+import Link from "next/link";
 
 export default function Header(){
     return (
@@ -26,7 +27,7 @@ export default function Header(){
             <nav className={s.nav}>
                 <div className="container">
                     <ul className={s.links}>
-                        <li><a href="#interview">Interview</a></li>
+                        <li><Link href="/interview">Interview</Link></li>
                         <li><a href="#resume">Resume</a></li>
                         <li><a href="#neet">NeetCode</a></li>
                         <li><a href="#about">About</a></li>

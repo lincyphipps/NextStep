@@ -16,7 +16,7 @@
 
 /* minimal reset to avoid browser defaults interfering */
 *{ box-sizing:border-box; }
-html,body{ margin:0; }
+html,body{ height: 100%; margin:0; }
 
 /* base body styles */
 body{
@@ -55,3 +55,17 @@ h1,h2,h3{
   display:grid;
   gap:22px;
 }
+
+.site{
+  min-height: 100dvh;          /* full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+.site-main{
+  flex: 1 0 auto;              /* fill space between header and footer */
+  display: flex;               /* allow children to stretch if needed */
+  flex-direction: column;
+}
+
+/* make sure footer doesn't add extra spacing */
+footer { flex-shrink: 0; margin: 0; }

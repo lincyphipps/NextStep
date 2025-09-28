@@ -1,5 +1,7 @@
 import "./globals.css"; // import global css so it applies to the whole app
 import { Cormorant_Garamond, Inter } from "next/font/google"; // import google fonts helpers
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 // load a serif display font for heaginds, set a CSS variable for use in CSS
 const display = Cormorant_Garamond({ 
@@ -26,9 +28,11 @@ export default function RootLayout({ children }) {
     // set doc language
     <html lang="en">
       {/* apply font CSS variables to <body> so all children use it */}
-      <body className={`${display.variable} ${sans.variable}`}>
+      <body className="site">
+        <Header />
         {/* render the active page here */}
-        {children}
+        <main className="site-main">{children}</main>
+        <Footer />
       </body>
     </html>
   );
