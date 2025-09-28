@@ -35,6 +35,7 @@
   background: transparent;
   color: var(--cream);
   z-index: 5;
+  text-decoration: none;
 }
 
 .profile:hover, .profile:focus-visible{
