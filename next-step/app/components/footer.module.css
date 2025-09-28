@@ -1,0 +1,27 @@
+/* styling for the footer component */
+
+.foot{
+    background:var(--redDark);
+    color:var(--cream);
+    padding:18px 0;
+}
+
+.row{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.brand{
+    font-family:var(--font-display);
+    font-size:28px;
+    letter-spacing:.02em;
+}
+
+.icons{
+    display:flex;
+    gap:12px;
+}
+
+.icons a{ color:var(--cream); }

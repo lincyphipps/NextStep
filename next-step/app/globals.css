@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* theme variables available everywhere */
+:root{
+  --redDark:#780000;
+  --red:#c1121f;
+  --cream:#fdf0d5;
+  --navy:#003049;
+  --blue:#669bbc;
+
+  --radius:14px; /*default border radius for cards/elements */
+  --max:1120px; /*max content width */
+  --font-display:"Cormorant Garamond",serif; /*fallbacks for fonts*/
+  --font-sans:Inter,sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* minimal reset to avoid browser defaults interfering */
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+
+/* base body styles */
+body{
+  background:var(--cream); /* paper-like background*/
+  color:var(--navy); /* primary text color*/
+  font-family:var(--font-sans); /* use our sans serif for body copy */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* default settings for headings for hero-like text */
+h1,h2,h3{
+  font-family:var(--font-display);
+  margin:0;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* utility classes used in sections/components */
+.h1{font-size:clamp(40px,5vw,64px); 
+  line-height: 1;}
+.p{
+  opacity: .9;}
+.btn{
+  display:inline-block;
+  padding:10px 14px;
+  border:2px solid var(--navy);
+  border-radius: transparent;
+  color:var(--navy);
+  text-decoration: none;
+  font-weight: 700;
+}
+.card{ /* white card on cream page*/
+  background:#fff;
+  border:2px solid var(--navy);
+  border-radius:var(--radius);
+  padding:18px;
+}
+.grid{
+  display:grid;
+  gap:22px;
 }

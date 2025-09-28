@@ -1,0 +1,63 @@
+/* styling for header component */
+.top{
+    background: var(--redDark);
+    padding:56px;
+    position: relative;
+}
+
+.row{
+    position:relative;
+    height:100%;
+}
+
+.centerLogo{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translateX(-50%, -58%);
+    pointer-events: none;
+}
+
+:root { --logo-shift: -50%; }
+.centerLogo{ transform: translate(-50%, var(--logo-shift)); }
+
+.profile{
+  position: absolute;
+  right: 12px;              
+  top: 50%;
+  transform: translateY(-50%);  
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  z-index: 5;
+}
+
+.profile:hover, .profile:focus-visible{
+  outline: none;
+  background: rgba(253, 240, 213, 0.08); 
+}
+
+.nav{
+    background:var(--navy);
+    color:var(--cream);
+}
+
+.links{
+    display:flex;
+    gap:24px;
+    list-style:none;
+    padding:10px 0;
+    margin:0;
+    justify-content: center;
+}
+
+.links a{
+    color:var(--cream);
+    text-decoration:none;
+    font-size:15px;
+}
