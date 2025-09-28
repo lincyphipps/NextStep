@@ -1,5 +1,6 @@
 'use client';
 
+import { signOut } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -92,6 +93,15 @@ export default function Dashboard() {
       // Unchecking the box - decrement streak
       setStreak(Math.max(0, streak - 1));
       setTodayCompleted(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "/"; // Redirect to homepage after logout
+    } catch (error) {
+      console.error("Error signing out:", error);
     }
   };
 
@@ -239,6 +249,10 @@ export default function Dashboard() {
                     </h1>
                   )}
                   <p className={s.welcomeText}>Welcome to your NextStep dashboard!</p>
+                  {/*Logout Button*/}
+                  <button onClick={handleLogout} className={s.logoutButton}>
+                    Logout
+                    </button>
                 </div>
               </div>
             </div>

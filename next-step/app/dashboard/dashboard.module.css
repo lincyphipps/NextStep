@@ -26,6 +26,23 @@
   gap: 24px;
 }
 
+.logoutButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #c1121f;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #a10e19;
+}
+
 .avatar {
   width: 80px;
   height: 80px;
