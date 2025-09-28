@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import s from './dashboard.module.css';
-import mascot from '../../public/assets/hero page.png';
 
 export default function Dashboard() {
   const [userName, setUserName] = useState('Your Name');
@@ -147,13 +145,7 @@ export default function Dashboard() {
           <div className={s.dayLabel}>{day}</div>
           {showMascot && (
             <div className={s.mascotContainer}>
-              <Image 
-                src={mascot} 
-                alt="NextStep Mascot" 
-                width={40} 
-                height={40} 
-                className={s.mascot}
-              />
+              <div className={s.mascot}>🐸</div>
             </div>
           )}
         </div>
@@ -163,7 +155,6 @@ export default function Dashboard() {
 
   return (
     <main>
-      
       {/* Confetti Animation */}
       {showConfetti && (
         <div className={s.confettiContainer}>
