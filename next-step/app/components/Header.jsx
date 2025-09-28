@@ -63,7 +63,7 @@ export default function Header(){
                         </li>
                         <li>
                             <a
-                            onClick={() => router.push(isLoggedIn ? "/neet" : "/signup")}
+                            onClick={() => router.push(isLoggedIn ? "/neetcode" : "/signup")}
                             style={{ cursor: "pointer" }}
                             >
                                 NeetCode
