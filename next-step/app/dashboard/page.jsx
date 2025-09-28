@@ -38,6 +38,9 @@ export default function Dashboard() {
         setUserName(data.name || "Your Name");
         setApplications(data.applications || 0);
         setInterviews(data.interviews || 0);
+        setStreak(data.streakCount || 0);
+        setLastCompletedDate(data.lastCompletedDate || null);
+        setTodayCompleted(data.lastCompletedDate === new Date().toDateString());
       }
     };
 
