@@ -210,10 +210,6 @@ export default function Dashboard() {
           {/* Quick Stats */}
           <div className={s.statsSection}>
             <div className={s.statsGrid}>
-              <div className={`${s.statCard} card`}>
-                <h3>Leetcode Progress</h3>
-                <div className={s.statValue}>75%</div>
-              </div>
               
               <div className={`${s.statCard} card`}>
                 <h3>Applications</h3>
