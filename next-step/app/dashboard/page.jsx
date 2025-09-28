@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Image from 'next/image';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import s from './dashboard.module.css';
-import mascot from '../../public/assets/hero page.png';
 
 export default function Dashboard() {
   const [userName, setUserName] = useState('Your Name');
@@ -204,13 +204,7 @@ export default function Dashboard() {
           <div className={s.dayLabel}>{day}</div>
           {showMascot && (
             <div className={s.mascotContainer}>
-              <Image 
-                src={mascot} 
-                alt="NextStep Mascot" 
-                width={40} 
-                height={40} 
-                className={s.mascot}
-              />
+              <div className={s.mascot}>🐸</div>
             </div>
           )}
         </div>
@@ -220,7 +214,6 @@ export default function Dashboard() {
 
   return (
     <main>
-      
       {/* Confetti Animation */}
       {showConfetti && (
         <div className={s.confettiContainer}>
@@ -280,10 +273,6 @@ export default function Dashboard() {
           {/* Quick Stats */}
           <div className={s.statsSection}>
             <div className={s.statsGrid}>
-              <div className={`${s.statCard} card`}>
-                <h3>Leetcode Progress</h3>
-                <div className={s.statValue}>75%</div>
-              </div>
               
               <div className={`${s.statCard} card`}>
                 <h3>Applications</h3>

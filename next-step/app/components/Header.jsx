@@ -25,7 +25,7 @@ export default function Header(){
                 <div className="container">
                     <div className={s.row}>
                         <Link href="/" className={s.centerLogo}>
-                            <Image src={headerLogo} alt="NextStep" width={72} height={72} />
+                            <Image src={headerLogo} alt="NextStep" width={90} height={90} />
                         </Link>
                         <a
                             className={s.profile}
@@ -72,6 +72,7 @@ export default function Header(){
                         <li>
                             <Link href="/about">About</Link>
                         </li>
+
                     </ul>
                 </div>
             </nav>
