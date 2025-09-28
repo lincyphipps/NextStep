@@ -1,8 +1,8 @@
 export const roadmapLinks = {
   "Arrays & Hashing": [
-    "https://neetcode.io/problems/two-sum",
-    "https://neetcode.io/problems/valid-anagram",
-    "https://neetcode.io/problems/group-anagrams",
+    "https://neetcode.io/problems/two-sum?list=neetcode150",
+    "https://neetcode.io/problems/valid-anagram?list=neetcode150",
+    "https://neetcode.io/problems/group-anagrams?list=neetcode150",
     "https://neetcode.io/problems/duplicate-integer?list=neetcode150",
     "https://neetcode.io/problems/top-k-elements-in-list?list=neetcode150",
     "https://neetcode.io/problems/string-encode-and-decode?list=neetcode150",
