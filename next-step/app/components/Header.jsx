@@ -3,7 +3,6 @@ import Image from "next/image"; // next image: optimized images
 import Link from "next/link"; // next link for navigation
 import s from "./header.module.css"; // css module specific to header
 import headerLogo from "../../public/assets/single logo.png"
-import Link from "next/link";
 
 export default function Header(){
     return (
