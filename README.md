@@ -23,7 +23,8 @@ Job searching can feel overwhelming. NextStep makes the leap less stressful by t
 - **ATS Optimization**: Receive recommendations for better resume formatting and keywords
 
 ### 📊 Dashboard & Progress Tracking
-- **LeetCode Streak Tracker**: Daily coding practice with lily pad progress visualization
+- **Daily Streak Tracker**: Daily coding practice with lily pad progress visualization
+- **Overall LeetCode Streak Tracker**: Daily coding streaks are saved in Firestore, so progress continues across devices
 - **Editable Stats**: Track applications and interviews with customizable counters
 - **Confetti Celebrations**: Fun animations when completing daily goals
 - **Personalized Experience**: Editable name and progress tracking
@@ -71,6 +72,10 @@ Job searching can feel overwhelming. NextStep makes the leap less stressful by t
    Create a `.env.local` file in the root directory:
    ```env
    GEMINI_API_KEY=your_gemini_api_key_here
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_PROJECT_ID=your_firebase_project_id
+   NEXT_PUBLIC_SENDER_ID=your_firebase_sender_id
+   NEXT_PUBLIC_APP_ID=your_firebase_app_id
    ```
 
 4. **Run the development server**
@@ -102,6 +107,8 @@ next-step/
 │   ├── interview/            # Interview practice page
 │   ├── resume/               # Resume analysis page
 │   ├── sections/             # Home page sections
+│   ├── firebase/             # Firebase config lives here
+│   │   └── firebaseConfig.js # Firebase setup (auth + Firestore)
 │   ├── globals.css           # Global styles and design system
 │   └── layout.js             # Root layout with fonts
 ├── data/
