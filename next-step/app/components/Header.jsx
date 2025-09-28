@@ -38,13 +38,6 @@ export default function Header(){
                                     <path d="M4.5 19.5c0-3.6 3.8-5.5 7.5-5.5s7.5 1.9 7.5 5.5" strokeLinecap="round"/>
                                 </svg>
                         </a>    
-                        {/* <Link href="/dashboard" className={s.profile} aria-label="Profile">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="CurrentColor">
-                                <circle cx="12" cy="8" r="3.5"/>
-                                <path d="M4.5 19.5c0-3.6 3.8-5.5 7.5-5.5s7.5 1.9 7.5 5.5" strokeLinecap="round"/>
-                            </svg>
-                        </Link> */}
-
                     </div>
                 </div>
             </div>
@@ -53,13 +46,32 @@ export default function Header(){
                 <div className="container">
                     <ul className={s.links}>
                         <li>
-                            <a onClick={() => router.push(isLoggedIn ? "/interview" : "/signup")} style={{ cursor: "pointer"}}>
+                            <a 
+                            onClick={() => router.push(isLoggedIn ? "/interview" : "/signup")} 
+                            style={{ cursor: "pointer" }}
+                            >
                                 Interview
-                                </a>
-                                </li>
-                        <li><a href="#resume">Resume</a></li>
-                        <li><a href="#neet">NeetCode</a></li>
-                        <li><a href="#about">About</a></li>
+                            </a>
+                        </li>
+                        <li>    
+                            <a 
+                            onClick={() => router.push(isLoggedIn ? "/resume" : "/signup")} 
+                            style={{ cursor: "pointer" }}
+                            >
+                                Resume
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                            onClick={() => router.push(isLoggedIn ? "/neet" : "/signup")}
+                            style={{ cursor: "pointer" }}
+                            >
+                                NeetCode
+                            </a>
+                        </li>
+                        <li>
+                            <Link href="/about">About</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>
