@@ -1,34 +1,36 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import interviewQuestions from "../../data/interviewQuestions.json";
 
 export default function ChatPage() {
   const [step, setStep] = useState("intro");
   const [category, setCategory] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
   const [question, setQuestion] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const questions = {
-    behavioral: [
-      "Tell me about a time you solved a problem with a team.",
-      "Describe a challenge you overcame in school or work."
-    ],
-    technical: {
-      easy: ["Reverse a string in JavaScript."],
-      medium: ["Find the longest substring without repeating characters."],
-      hard: ["Implement an LRU cache."]
+  // Filter questions by category and difficulty
+  const getFilteredQuestions = (cat, diff) => {
+    if (cat === "behavioral") {
+      return interviewQuestions.filter(q => q.category === "behavioral");
+    } else {
+      return interviewQuestions.filter(q => q.category === "technical" && q.difficulty === diff);
     }
   };
 
   function pickQuestion(cat, diff) {
-    if (cat === "behavioral") {
-      return questions.behavioral[Math.floor(Math.random() * questions.behavioral.length)];
-    } else {
-      return questions.technical[diff][0];
+    const filteredQuestions = getFilteredQuestions(cat, diff);
+    if (filteredQuestions.length === 0) {
+      return null;
     }
+    const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
+    const selectedQuestion = filteredQuestions[randomIndex];
+    setCurrentQuestion(selectedQuestion);
+    return selectedQuestion.text;
   }
 
   async function handleSubmit() {
@@ -77,12 +79,6 @@ export default function ChatPage() {
           </div>
         )}
 
-        {/* Exit */}
-        <div style={{ textAlign: "right", marginBottom: "1rem" }}>
-          <Link href="/" className="btn" style={{ background: "#780000", color: "#fff", padding: ".5rem 1rem", borderRadius: ".5rem" }}>
-            Exit
-          </Link>
-        </div>
 
         {step === "category" && (
           <div style={{ textAlign: "center" }}>
@@ -120,16 +116,14 @@ export default function ChatPage() {
               <button style={{ margin: ".25rem", background: "#003049", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
                 onClick={() => setStep("answer")}>Answer</button>
               <button style={{ margin: ".25rem", background: "#c1121f", color: "#fff", padding: ".4rem 1rem", borderRadius: ".5rem" }}
-                onClick={async () => {
-                  const res = await fetch("/api/chatbot", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ question, mode: "model-answer" }),
-                  });
-                  const data = await res.json();
-                  const txt = data.output?.candidates?.[0]?.content?.parts?.[0]?.text || "No answer available.";
-                  setFeedback(txt);
-                  setStep("feedback");
+                onClick={() => {
+                  if (currentQuestion && currentQuestion.answer) {
+                    setFeedback(currentQuestion.answer);
+                    setStep("feedback");
+                  } else {
+                    setFeedback("No answer available for this question.");
+                    setStep("feedback");
+                  }
                 }}>See Answer</button>
             </div>
           </div>
