@@ -27,7 +27,7 @@ export default function Header(){
             <nav className={s.nav}>
                 <div className="container">
                     <ul className={s.links}>
-                        <li><a href="#interview">Interview</a></li>
+                        <li><Link href="/interview">Interview</Link></li>
                         <li><a href="#resume">Resume</a></li>
                         <li><a href="#neet">NeetCode</a></li>
                         <li><a href="#about">About</a></li>
